@@ -5,22 +5,23 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <link rel="stylesheet" href="css/style.css">
+        <script src="js/leaderboard.js" type="module"></script>
     </head>
     <body>
         <header>
             <h1>House Score System</h1>
-            <span class="main-component">
+            <nav class="main-component">
                 <ul id="navbar">
                     <li>Leaderboard</li>
                     <li><a href="./addscore.html">Add Score</a></li>
                 </ul>
-            </span>
+            </nav>
         </header>
         <div id="body-container">
             <main class="main-component">
                 <h2>Leaderboard</h2>
                 <button id="refresh-leaderboard">Refresh</button>
-                <table>
+                <br><table id="results-table">
                     <tr>
                         <th>Rank</th>
                         <th>Name</th>
