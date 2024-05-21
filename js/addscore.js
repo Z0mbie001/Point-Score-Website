@@ -14,7 +14,6 @@ async function refreshActivites()
 {
     console.log("Refreshing the Activities");
     let {data, error} = await supabase.from("Activities").select("*").order("Points", {ascending: false});
-    console.log(data);
     if(data.length != 0)
     {
         await clearOptions();
