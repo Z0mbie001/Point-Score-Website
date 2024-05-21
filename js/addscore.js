@@ -67,9 +67,10 @@ async function submitActivity()
     var user = getUser(idInput.value);
     var activity = getActivity(options.value);
     if(user.PersonID == idInput.value)
-    {
-        let error = await supabase.from("PeopleActivities").insert({PersonID: user.PersonID, ActivityID: activity.ActivityID});
-        // TODO add people table update command
+    {   
+        newScore = user.Score + activity.Points;
+        let {error} = await supabase.from("PeopleActivities").insert({PersonID: user.PersonID, ActivityID: activity.ActivityID});
+        let {error:peopleError} = await supabase.from("People").update({Score: newScore }).eq("PersonID", user.PersonID);
     }
 }
 
