@@ -7,10 +7,10 @@ const supabase = createClient('https://zndpnqsommwahmmdkmmc.supabase.co', 'eyJhb
 const table = document.getElementById("ActivityTable");
 const idInput = document.getElementById("IDInput");
 const options = document.getElementById("ActivityInput");
-const submtiButton = document.getElementById("ActivitySubmit");
+const submitButton = document.getElementById("ActivitySubmit");
 
 // Assign Event Listeners
-//submtiButton.addEventListener("click", submitActivity);
+submitButton.addEventListener("click", submitActivity);
 
 // The Refresh Function
 async function refreshActivites()
@@ -63,25 +63,40 @@ async function clearOptions()
 
 async function submitActivity()
 {
+    console.log("Submitting Activity");
     var user = getUser(idInput.value);
-    
+    if(user.PersonID == idInput.value)
+    {
+        let error = await supabase;
+    }
 }
 
 async function getUser(PersonID)
 {
-    console.log("Fetching User Data");
-    let {data, error} = await supabase.from("People").select("*").like("PersonID", PersonID);
-    if(data.length == 1)
+    console.log("Fetching User Data: " + PersonID);
+    if(PersonID == "")
     {
-        return data[0];
+        PersonID = 0;
     }
-    else if (data.length > 1)
+    let {data, error} = await supabase.from("People").select("*").eq("PersonID", PersonID);
+    if(data != null)
     {
-        console.log("More than 1 user returned");
+        if(data.length == 1)
+        {
+            return data[0];
+        }
+        else if (data.length > 1)
+        {
+            console.log("More than 1 user returned");
+        }
+        else
+        {
+            console.log("No users returned");
+        }
     }
     else
     {
-        console.log("No users returned");
+        console.log("Data is Null");
     }
 }
 
