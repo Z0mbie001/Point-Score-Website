@@ -1,27 +1,33 @@
 // Install the supabse-js module
-import { createClient } from '';
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 
 // Create a single supabase client
-const supabase = createClient('', '');
+const supabase = createClient('https://zndpnqsommwahmmdkmmc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpuZHBucXNvbW13YWhtbWRrbW1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYyOTA0MDMsImV4cCI6MjAzMTg2NjQwM30.SOviPkL0lHuGRIP0OLMFCPXq9KhixmPEB4s6Z5Arcjk');
 
 // Get UI Elements
 const table = document.getElementById("results-table");
+const refreshButton = document.getElementById("refresh-leaderboard");
 
 // Store Table Detials
 var results = null;
 
+// Assign Event Listeners
+refreshButton.addEventListener("click", refreshLeaderboard);
+
 // The Refresh Function
 async function refreshLeaderboard()
 {
-    let leaderboardQuery = supabase.from("People").select("*").order("Score", {ascending: false});
-    let {data, error} = await leaderboardQuery;
+    console.log("Refreshing the Leaderboard");
+    let {data, error} = await supabase.from("People").select("*").order("Score", {ascending: false});
+    console.log(data);
+    console.log(error);
     if(data.length != 0)
     {
         if(data == results)
         {
-                return;
+            return;
         }
-        clearTable();
+        await clearTable();
         results = data;
         for(let i = 0; i < data.length; i++)
         {
@@ -29,9 +35,9 @@ async function refreshLeaderboard()
             var rank = document.createElement("td");
             rank.innerText = i + 1;
             var name = document.createElement("td");
-            name.innerText = data.Name;
+            name.innerText = data[i].Name;
             var score = document.createElement("td");
-            score.innerText = data.CurrentScore;
+            score.innerText = data[i].Score;
 
             newRow.appendChild(rank);
             newRow.appendChild(name);
@@ -59,6 +65,5 @@ async function scheduleRefresh()
     window.setInterval(refreshLeaderboard, 60000);
 }
 
-clearTable();
 refreshLeaderboard();
 scheduleRefresh();
