@@ -17,16 +17,21 @@
             </nav>
         </header>
         <div id="body-container">
-            <main class="main-component">
-                <h2>Leaderboard</h2>
-                <button id="refresh-leaderboard">Refresh</button>
-                <br><table>
+            <aside class="main-component">
+                <table>
                     <tr>
-                        <th>Rank</th>
-                        <th>Name</th>
-                        <th>Score</th>
+                        <th>Activity</th>
+                        <th>Points</th>
                     </tr>
                 </table>
+            </aside>
+            <main class="main-component">
+                <h2>Add a score</h2>
+                <form>
+                    <input id="IDInput" name="IDInput" type="text" placeholder="Enter you ID Number">
+                    <br>
+                    <select id="ActivityInput" name="ActivityInput"><option>Select an Activity</option></select>
+                </form>
             </main>
             <footer>
                 <p>This webpage was created by Jack Babey in 2024 and is protected under an MIT License</p>
