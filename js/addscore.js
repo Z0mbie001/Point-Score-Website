@@ -65,9 +65,11 @@ async function submitActivity()
 {
     console.log("Submitting Activity");
     var user = getUser(idInput.value);
+    var activity = getActivity(options.value);
     if(user.PersonID == idInput.value)
     {
-        let error = await supabase;
+        let error = await supabase.from("PeopleActivities").insert({PersonID: user.PersonID, ActivityID: activity.ActivityID});
+        // TODO add people table update command
     }
 }
 
@@ -98,6 +100,11 @@ async function getUser(PersonID)
     {
         console.log("Data is Null");
     }
+}
+
+async function getActivity(ActivityName)
+{
+    
 }
 
 refreshActivites();
