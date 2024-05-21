@@ -17,7 +17,7 @@ async function refreshActivites()
     console.log(data);
     if(data.length != 0)
     {
-        //await clearOptions();
+        await clearOptions();
         
         for(let i = 0; i < data.length; i++)
         {
@@ -38,6 +38,25 @@ async function refreshActivites()
     }
 }
 
+async function clearOptions()
+{
+    console.log("Clear Table");
+    if(table.children.length > 1)
+    {
+        for(let i = 1; i < table.children.length; i++)
+        {
+            table.removeChild(table.children[1]);
+        }
+    }
 
+    console.log("Clear Options");
+    if(options.length > 1)
+    {
+        for(let i = 1; i < options.length; i++)
+        {
+            options.remove(options.children[1]);
+        }
+    }
+}
 
 refreshActivites();
