@@ -5,9 +5,12 @@ const supabase = createClient('https://zndpnqsommwahmmdkmmc.supabase.co', 'eyJhb
 
 // Get UI Elements
 const table = document.getElementById("ActivityTable");
+const idInput = document.getElementById("IDInput");
 const options = document.getElementById("ActivityInput");
+const submtiButton = document.getElementById("ActivitySubmit");
 
 // Assign Event Listeners
+//submtiButton.addEventListener("click", submitActivity);
 
 // The Refresh Function
 async function refreshActivites()
@@ -55,6 +58,30 @@ async function clearOptions()
         {
             options.remove(options.children[1]);
         }
+    }
+}
+
+async function submitActivity()
+{
+    var user = getUser(idInput.value);
+    
+}
+
+async function getUser(PersonID)
+{
+    console.log("Fetching User Data");
+    let {data, error} = await supabase.from("People").select("*").like("PersonID", PersonID);
+    if(data.length == 1)
+    {
+        return data[0];
+    }
+    else if (data.length > 1)
+    {
+        console.log("More than 1 user returned");
+    }
+    else
+    {
+        console.log("No users returned");
     }
 }
 
