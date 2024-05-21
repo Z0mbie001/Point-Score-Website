@@ -7,14 +7,22 @@ const supabase = createClient('', '');
 // Get UI Elements
 const table = document.getElementById("results-table");
 
+// Store Table Detials
+var results = null;
+
 // The Refresh Function
 async function refreshLeaderboard()
 {
-    clearTable();
     let leaderboardQuery = supabase.from("People").select("*").order("Score", {ascending: false});
     let {data, error} = await leaderboardQuery;
     if(data.length != 0)
     {
+        if(data == results)
+        {
+                return;
+        }
+        clearTable();
+        results = data;
         for(let i = 0; i < data.length; i++)
         {
             var newRow = document.createElement("tr");
@@ -34,6 +42,7 @@ async function refreshLeaderboard()
     }
 }
 
+// Clears the Leaderboard
 async function clearTable()
 {
     if(table.children.length > 1)
@@ -45,4 +54,11 @@ async function clearTable()
     }
 }
 
+async function scheduleRefresh()
+{
+    window.setInterval(refreshLeaderboard, 60000);
+}
+
 clearTable();
+refreshLeaderboard();
+scheduleRefresh();
