@@ -104,7 +104,31 @@ async function getUser(PersonID)
 
 async function getActivity(ActivityName)
 {
-    
+    console.log("Fetching Activity Data: " + ActivityName);
+    if(ActivityName == "Select an Activity")
+    {
+        return;
+    }
+    let {data, error} = await supabase.from("Activities").select("*").eq("ActivityName", ActivityName);
+    if(data != null)
+        {
+            if(data.length == 1)
+            {
+                return data[0];
+            }
+            else if (data.length > 1)
+            {
+                console.log("More than 1 activities returned");
+            }
+            else
+            {
+                console.log("No activities returned");
+            }
+        }
+        else
+        {
+            console.log("Data is Null");
+        }
 }
 
 refreshActivites();
