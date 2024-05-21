@@ -4,12 +4,13 @@
         <title>House Score System</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/admin/dashboard.js" type="module"></script>
     </head>
     <body>
         <header>
             <h1>House Score System Admin</h1>
-            <nav class="main-component">
+            <nav id="navbar-container" class="main-component">
                 <ul id="navbar">
                     <li>Leaderboard</li>
                     <li>Add Score</li>
@@ -18,8 +19,17 @@
         </header>
         <div id="body-container">
             <main class="main-component" style="grid-column: span 2;">
-                <h2>Overview</h2>
-                
+                <h2 id="main-header">Login to view</h2>
+                <form>
+                    <input id="pwInput" name="pwInput" type="password" placeholder="Enter Password">
+                    <br>
+                    <button id="pwSubmit" name="pwSubmit" type="button">Submit</button>
+                </form>
+                <span id="stats-container">
+                    <h3>Users</h3>
+
+                    <h3>Activities</h3>
+                </span>
             </main>
             <footer>
                 <p>This webpage was created by Jack Babey in 2024 and is protected under an MIT License</p>
