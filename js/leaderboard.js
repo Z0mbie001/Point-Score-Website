@@ -19,8 +19,6 @@ async function refreshLeaderboard()
 {
     console.log("Refreshing the Leaderboard");
     let {data, error} = await supabase.from("People").select("*").order("Score", {ascending: false});
-    console.log(data);
-    console.log(error);
     if(data.length != 0)
     {
         if(data == results)
@@ -51,6 +49,7 @@ async function refreshLeaderboard()
 // Clears the Leaderboard
 async function clearTable()
 {
+    console.log("Clear Table");
     if(table.children.length > 1)
     {
         for(let i = 1; i < table.children.length; i++)
