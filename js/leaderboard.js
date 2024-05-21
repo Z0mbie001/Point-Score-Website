@@ -18,7 +18,7 @@ refreshButton.addEventListener("click", refreshLeaderboard);
 async function refreshLeaderboard()
 {
     console.log("Refreshing the Leaderboard");
-    let {data, error} = await supabase.from("People").select("*").order("Score", {ascending: false});
+    let {data, error} = await supabase.from("People").select("*").order("Score", {ascending: false}).order("Name", {ascending: false});
     if(data.length != 0)
     {
         if(data == results)
@@ -52,7 +52,7 @@ async function clearTable()
     console.log("Clear Table");
     if(table.children.length > 1)
     {
-        for(let i = 1; i < table.children.length; i++)
+        for(let i = 0; i < table.children.length; i++)
         {
             table.removeChild(table.children[1]);
         }

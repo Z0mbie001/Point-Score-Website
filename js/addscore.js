@@ -45,7 +45,7 @@ async function clearOptions()
     console.log("Clear Table");
     if(table.children.length > 1)
     {
-        for(let i = 1; i < table.children.length; i++)
+        for(let i = 0; i < table.children.length; i++)
         {
             table.removeChild(table.children[1]);
         }
@@ -54,7 +54,7 @@ async function clearOptions()
     console.log("Clear Options");
     if(options.length > 1)
     {
-        for(let i = 1; i < options.length; i++)
+        for(let i = 0; i < options.length; i++)
         {
             options.remove(options.children[1]);
         }
@@ -64,14 +64,26 @@ async function clearOptions()
 async function submitActivity()
 {
     console.log("Submitting Activity");
-    var user = getUser(idInput.value);
-    var activity = getActivity(options.value);
+    var user = await getUser(idInput.value);
+    var activity = await getActivity(options.value);
+    console.log(user);
     if(user.PersonID == idInput.value)
     {   
-        newScore = user.Score + activity.Points;
-        let {error} = await supabase.from("PeopleActivities").insert({PersonID: user.PersonID, ActivityID: activity.ActivityID});
-        let {error:peopleError} = await supabase.from("People").update({Score: newScore }).eq("PersonID", user.PersonID);
+        console.log("Update database");
+        let newScore = user.Score + activity.Points;
+        const {error} = await supabase.from("PeopleActivities").insert({PersonID: user.PersonID, ActivityID: activity.ActivityID});
+        const {error:peopleError} = await supabase.from("People").update({Score: newScore }).eq("PersonID", user.PersonID);
+        if(error != null)
+        {
+            console.log(error);
+        }
+
+        if(peopleError != null)
+        {
+            console.log(peopleError);
+        }
     }
+    console.log("Activity Submitted");
 }
 
 async function getUser(PersonID)
