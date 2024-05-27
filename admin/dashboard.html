@@ -20,15 +20,28 @@
         <div id="body-container">
             <main class="main-component" style="grid-column: span 2;">
                 <h2 id="main-header">Login to view</h2>
-                <form>
+                <form id="login-form">
                     <input id="pwInput" name="pwInput" type="password" placeholder="Enter Password">
                     <br>
                     <button id="pwSubmit" name="pwSubmit" type="button">Submit</button>
                 </form>
                 <span id="stats-container">
+                    <button id="adminLogout" name="adminLogout" type="button">Log Out</button>
                     <h3>Users</h3>
-
+                        <p id="userCount">Number of Users:</p>
+                        <label for="userStats" style="display: none;">User Stats:</label>
+                        <table id="userStats" name="userStats" style="display: none;">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Total Points</th>
+                            </tr>
+                        </table>
                     <h3>Activities</h3>
+                        <p id="userActivity">Number of Activities Sumbitted:</p>
+                        <p id="userActivityDay">Number of Activities Today:</p>
+                        <p id="userActivityAverage">Average Number of Activites Total:</p>
+                        <p id="userActivityAverageDay">Average Number of Activities Today:</p>
                 </span>
             </main>
             <footer>
