@@ -17,10 +17,10 @@ const logoutButton = document.getElementById("adminLogout");
 const numUsers = document.getElementById("userCount");
 
 //// Activites
-const numActivities = document.getElementById("");
-const numActivitiesToday = document.getElementById("");
-const avgActivities = document.getElementById("");
-const avgActivitiesToday = document.getElementById("");
+const numActivities = document.getElementById("userActivity");
+const numActivitiesToday = document.getElementById("userActivityDay");
+const avgActivities = document.getElementById("userActivityAverage");
+const avgActivitiesToday = document.getElementById("userActivityAverageDay");
 
 // Create Static Password Variable
 const passwd = "59860170";
