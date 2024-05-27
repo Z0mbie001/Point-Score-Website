@@ -1,5 +1,6 @@
 // Import Statements
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+import { setCookie, getCookie } from '../cookies';
 
 // Create a single supabase client
 const supabase = createClient('https://zndpnqsommwahmmdkmmc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpuZHBucXNvbW13YWhtbWRrbW1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYyOTA0MDMsImV4cCI6MjAzMTg2NjQwM30.SOviPkL0lHuGRIP0OLMFCPXq9KhixmPEB4s6Z5Arcjk');
@@ -86,33 +87,6 @@ function checkCookie()
     {
         showHidden(false);
     }
-}
-
-function setCookie(cname, cvalue, expiryDays)
-{
-    const d = new Date();
-    d.setTime(d.getTime() + (expiryDays*24*60*1000));
-    document.cookie = cname + "=" + cvalue + ";" + "expires=" + d.toUTCString() + ";path=/";
-}
-
-function getCookie(cname)
-{
-    let name = cname + "=";
-    let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(";");
-    for(let i = 0; i < ca.length; i++)
-    {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') 
-        {
-            c = c.substring(1);
-        }
-
-        if(c.indexOf(name) == 0){
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
 }
 
 // A function to hash a given input
