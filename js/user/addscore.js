@@ -8,6 +8,7 @@ const table = document.getElementById("ActivityTable");
 const idInput = document.getElementById("IDInput");
 const options = document.getElementById("ActivityInput");
 const submitButton = document.getElementById("ActivitySubmit");
+const feeback = document.getElementById("feedback");
 
 // Assign Event Listeners
 submitButton.addEventListener("click", submitActivity);
@@ -83,7 +84,9 @@ async function submitActivity()
             console.log(peopleError);
         }
     }
-    console.log("Activity Submitted");
+    feeback.innerText = "Activity Submitted";
+    idInput.value = "";
+    options.value = options.children[0].innerText;
 }
 
 async function getUser(PersonID)
