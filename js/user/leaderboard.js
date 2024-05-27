@@ -52,7 +52,7 @@ async function clearTable()
     console.log("Clear Table");
     if(table.children.length > 1)
     {
-        for(let i = 0; i < table.children.length; i++)
+        for(let i = 0; i <= table.children.length; i++)
         {
             table.removeChild(table.children[1]);
         }
