@@ -62,7 +62,6 @@ async function getDetails()
     clearTable();
     // User Data
     const {data:userData, error:userError} = await supabase.from("People").select("*").order("PersonID", {ascending: true});
-    console.log(userData);
     if(userData != null)
     {
         numUsers.innerText = "Number of Users: " + userData.length;

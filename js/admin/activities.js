@@ -23,7 +23,7 @@ const numUsers = document.getElementById("userCount");
 // Create reference to UI elements to add user
 const idInput = document.getElementById("idInput");
 const nameInput = document.getElementById("nameInput");
-const nicknameInput = document.getElementById("nicknameInput");
+const pointsInput = document.getElementById("pointsInput");
 const sumbitButton = document.getElementById("submitButton");
 
 // Create Reference to the table
@@ -42,7 +42,7 @@ sumbitButton.addEventListener("click", addUser);
 async function addUser()
 {
     console.log("Adding User");
-    const {data:fetchData, error:fetchError} = await supabase.from("People").select("*").eq("PersonID", idInput.value);
+    const {data:fetchData, error:fetchError} = await supabase.from("Activities").select("*").eq("ActivityID", idInput.value);
     if(fetchData.length > 0)
     {
         console.log("ID Already Being Used");
@@ -50,7 +50,7 @@ async function addUser()
     }
     else
     {
-        const {error} = await supabase.from("People").insert({PersonID: idInput.value, Name: nameInput.value, Nickname: nicknameInput.value});
+        const {error} = await supabase.from("Activities").insert({ActivityID: idInput.value, ActivityName: nameInput.value, Points: pointsInput.value});
         getDetails();
     }
 }
@@ -61,35 +61,31 @@ async function getDetails()
     console.log("Refreshing Details");
     clearTable();
     // User Data
-    const {data:userData, error:userError} = await supabase.from("People").select("*").order("PersonID", {ascending: true});
-    console.log(userData);
-    if(userData != null)
+    const {data:activityData, error:userError} = await supabase.from("Activities").select("*").order("ActivityID", {ascending: true});
+    if(activityData != null)
     {
-        numUsers.innerText = "Number of Users: " + userData.length;
-        for(let i = 0; i < userData.length; i++)
+        numUsers.innerText = "Number of Activites: " + activityData.length;
+        for(let i = 0; i < activityData.length; i++)
         {
             // Create Table elements
             var newRow = document.createElement("tr");
             var id = document.createElement("td");
-            id.innerText = userData[i].PersonID;
+            id.innerText = activityData[i].ActivityID;
             var name = document.createElement("td");
-            name.innerText = userData[i].Name;
-            var nickname = document.createElement("td");
-            nickname.innerText = userData[i].Nickname;
+            name.innerText = activityData[i].ActivityName;
             var totalPoints = document.createElement("td");
-            totalPoints.innerText = userData[i].Score;
+            totalPoints.innerText = activityData[i].Points;
             var buttonBox = document.createElement("td");
             var button = document.createElement("button");
-            button.innerText = "Remove User";
+            button.innerText = "Remove Activity";
             buttonBox.appendChild(button);
 
             // Add event listenet
-            button.addEventListener("click", function(){deleteUser(userData[i].PersonID)})
+            button.addEventListener("click", function(){deleteActivity(activityData[i].ActivityID)})
 
             // Add children to objects
             newRow.appendChild(id);
             newRow.appendChild(name);
-            newRow.appendChild(nickname);
             newRow.appendChild(totalPoints);
             newRow.appendChild(buttonBox)
 
@@ -98,16 +94,16 @@ async function getDetails()
     }
     else
     {
-        numUsers.innerText = "Number of Users: Unknown";
-        console.log("No User Data Found");
+        numUsers.innerText = "Number of Activities: Unknown";
+        console.log("No Activity Data Found");
         return;
     }
 }
 
-async function deleteUser(id)
+async function deleteActivity(id)
 {
     console.log("Removing: " + id);
-    const {error} = await supabase.from("People").delete().eq("PersonID", id);
+    const {error} = await supabase.from("Activities").delete().eq("ActivityID", id);
     if(error != null)
     {
         console.log(error);
@@ -128,7 +124,7 @@ function showHidden(show)
         loginForm.style.display = "none";
 
         // Change the heading
-        mainHeader.innerText = "User Dashboard";
+        mainHeader.innerText = "Activity Dashboard";
     }
     else
     {
