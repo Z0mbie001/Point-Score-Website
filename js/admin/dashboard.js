@@ -15,6 +15,7 @@ const logoutButton = document.getElementById("adminLogout");
 const refreshButton = document.getElementById("refresh");
 
 // Create references to Text UI elements
+const mainHeader = document.getElementById("main-header");
 //// Users
 const numUsers = document.getElementById("userCount");
 
@@ -101,6 +102,9 @@ function showHidden(show)
 
         // Hide the Login Form
         loginForm.style.display = "none";
+
+        // Change the heading
+        mainHeader.innerText = "General Statistics";
     }
     else
     {
@@ -110,6 +114,9 @@ function showHidden(show)
 
         // Show the Login Form
         loginForm.style.display = "block";
+
+        // Change the heading
+        mainHeader.innerText = "Login to view";
     }
 }
 
