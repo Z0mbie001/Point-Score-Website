@@ -1,6 +1,7 @@
 // Import Statements
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
 import { setCookie, getCookie } from '../cookies.js';
+import { hashFunction } from '../hash.js';
 
 // Create a single supabase client
 const supabase = createClient('https://zndpnqsommwahmmdkmmc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpuZHBucXNvbW13YWhtbWRrbW1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYyOTA0MDMsImV4cCI6MjAzMTg2NjQwM30.SOviPkL0lHuGRIP0OLMFCPXq9KhixmPEB4s6Z5Arcjk');
@@ -151,13 +152,6 @@ function checkCookie()
     {
         showHidden(false);
     }
-}
-
-// A function to hash a given input
-function hashFunction(string) {
-    return string.split('').reduce((hash, char) => {
-        return char.charCodeAt(0) + (hash << 6) + (hash << 16) - hash;
-    }, 0);
 }
 
 showHidden(false);
