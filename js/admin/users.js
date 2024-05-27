@@ -30,23 +30,45 @@ pwButton.addEventListener("click", checkPassword);
 logoutButton.addEventListener("click", logout);
 refreshButton.addEventListener("click", getDetails);
 
+// A function to refresh the screen
 async function getDetails()
 {
     console.log("Refreshing Details");
+    clearTable();
     // User Data
-    const {data:userData, error:userError} = await supabase.from("People").select("*");
+    const {data:userData, error:userError} = await supabase.from("People").select("*").order("PersonID", {ascending: true});
+    console.log(userData);
     if(userData != null)
     {
         numUsers.innerText = "Number of Users: " + userData.length;
         for(let i = 0; i < userData.length; i++)
         {
+            // Create Table elements
             var newRow = document.createElement("tr");
             var id = document.createElement("td");
-            id = userData.PersonID;
+            id.innerText = userData[i].PersonID;
             var name = document.createElement("td");
-            name = userData.Name;
+            name.innerText = userData[i].Name;
+            var nickname = document.createElement("td");
+            nickname.innerText = userData[i].Nickname;
             var totalPoints = document.createElement("td");
-            totalPoints = userData.Score;
+            totalPoints.innerText = userData[i].Score;
+            var buttonBox = document.createElement("td");
+            var button = document.createElement("button");
+            button.innerText = "Remove User";
+            buttonBox.appendChild(button);
+
+            // Add event listenet
+            button.addEventListener("click", function(){deleteUser(userData[i].PersonID)})
+
+            // Add children to objects
+            newRow.appendChild(id);
+            newRow.appendChild(name);
+            newRow.appendChild(nickname);
+            newRow.appendChild(totalPoints);
+            newRow.appendChild(buttonBox)
+
+            table.appendChild(newRow);
         }
     }
     else
@@ -57,6 +79,18 @@ async function getDetails()
     }
 }
 
+async function deleteUser(id)
+{
+    console.log("Removing: " + id);
+    const {error} = await supabase.from("People").delete().eq("PersonID", id);
+    if(error != null)
+    {
+        console.log(error);
+    }
+    getDetails();
+}
+
+// A function to toggle hidden elements
 function showHidden(show)
 {
     if(show)
@@ -85,7 +119,8 @@ function showHidden(show)
     }
 }
 
-function checkPassword()
+// A function to check if it is the correct password
+async function checkPassword()
 {
     var pswd = hashFunction(pwInput.value);
     //console.log(pswd);
@@ -96,13 +131,15 @@ function checkPassword()
     }
 }
 
-function logout()
+// A function to log the user out
+async function logout()
 {
     showHidden(false);
     setCookie("adminPassword", "void", 1);
 }
 
-function checkCookie()
+// A function to check any cookies
+async function checkCookie()
 {
     let password = getCookie("adminPassword");
     if (password != "")
@@ -123,6 +160,19 @@ function hashFunction(string) {
     return string.split('').reduce((hash, char) => {
         return char.charCodeAt(0) + (hash << 6) + (hash << 16) - hash;
     }, 0);
+}
+
+// Clears the Leaderboard
+async function clearTable()
+{
+    console.log("Clear Table");
+    if(table.children.length > 1)
+    {
+        for(let i = 0; i < table.children.length; i++)
+        {
+            table.removeChild(table.children[1]);
+        }
+    }
 }
 
 showHidden(false);
