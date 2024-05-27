@@ -1,6 +1,6 @@
 // Import Statements
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
-import { setCookie, getCookie } from '../cookies';
+import { setCookie, getCookie } from '../cookies.js';
 
 // Create a single supabase client
 const supabase = createClient('https://zndpnqsommwahmmdkmmc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpuZHBucXNvbW13YWhtbWRrbW1jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYyOTA0MDMsImV4cCI6MjAzMTg2NjQwM30.SOviPkL0lHuGRIP0OLMFCPXq9KhixmPEB4s6Z5Arcjk');
@@ -30,9 +30,10 @@ const passwd = "59860170";
 pwButton.addEventListener("click", checkPassword);
 logoutButton.addEventListener("click", logout);
 
-// TODO Work out cookies for continuing authentication (IDEAL)
-// TODO finish stats
-// TODO compare hashed password
+function getStats()
+{
+    
+}
 
 function showHidden(show)
 {
