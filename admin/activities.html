@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>House Score System</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/admin/activities.js" type="module"></script>
+    </head>
+    <body>
+        <header>
+            <h1>House Score System Admin</h1>
+            <nav id="navbar-container" class="main-component">
+                <ul id="navbar">
+                    <li><a href="./dashboard.html">Stats</a></li>
+                    <li><a href="./users.html">Users</a></li>
+                    <li>Activities</li>
+                    <li><a href="./activityLog.html">Activity Log</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div id="body-container">
+            <main class="main-component" style="grid-column: span 2;">
+                <h2 id="main-header">Login to view</h2>
+                <form id="login-form">
+                    <input id="pwInput" name="pwInput" type="password" placeholder="Enter Password">
+                    <br>
+                    <button id="pwSubmit" name="pwSubmit" type="button">Submit</button>
+                </form>
+                <span id="hidden-container">
+                    <button id="adminLogout" name="adminLogout" type="button">Log Out</button>
+                    <button id="refresh" name="refresh" type="button">Refresh Details</button>
+                    <h3>Users</h3>
+                        <p id="userCount">Number of Users:</p>
+                        <label for="userStats">User Stats:</label>
+                        <table id="userStats" name="userStats">
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Nickname</th>
+                                <th>Total Points</th>
+                                <th></th>
+                            </tr>
+                        </table>
+                    <h3>Add User</h3>
+                    <form>
+                        <input id="idInput" name="idInput" type="text" placeholder="Enter ID">
+                        <br>
+                        <input id="nameInput" name="nameInput" type="text" placeholder="Enter Name">
+                        <br>
+                        <input id="nicknameInput" name="nicknameInput" type="text" placeholder="Enter Nickname">
+                        <br>
+                        <button id="submitButton" name="submitButton" type="button">Sumbit</button>
+                    </form>
+                </span>
+            </main>
+            <footer>
+                <p>This webpage was created by Jack Babey in 2024 and is protected under an MIT License</p>
+                <p>This webpage is publically hosted via GitHub Pages</p>
+            </footer>
+        </div>
+    </body>
+</html>
