@@ -70,7 +70,7 @@ async function getStats()
 
     // Activity Data Daily
     const today = new Date();
-    today.setTime(today.getTime() - 24*60*1000);
+    today.setTime(today.getTime() - 24*60*60*1000);
     const {data:activityDailyData, error:activityDailyError} = await supabase.from("PeopleActivities").select("*").gte("CompletionTime", today.toISOString());
     if(activityDailyData != null)
     {
