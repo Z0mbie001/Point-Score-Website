@@ -7,7 +7,7 @@ const supabase = createClient('https://zndpnqsommwahmmdkmmc.supabase.co', 'eyJhb
 
 // Create references to UI elements
 const navbar = document.getElementById("navbar-container");
-const statsbar = document.getElementById("stats-container");
+const hiddenContent = document.getElementById("hidden-container");
 const loginForm = document.getElementById("login-form");
 const pwInput = document.getElementById("pwInput");
 const pwButton = document.getElementById("pwSubmit");
@@ -19,6 +19,12 @@ const mainHeader = document.getElementById("main-header");
 //// Users
 const numUsers = document.getElementById("userCount");
 
+// Create reference to UI elements to add user
+const idInput = document.getElementById("idInput");
+const nameInput = document.getElementById("nameInput");
+const nicknameInput = document.getElementById("nicknameInput");
+const sumbitButton = document.getElementById("submitButton");
+
 // Create Reference to the table
 const table = document.getElementById("userStats");
 
@@ -29,6 +35,24 @@ const passwd = "59860170";
 pwButton.addEventListener("click", checkPassword);
 logoutButton.addEventListener("click", logout);
 refreshButton.addEventListener("click", getDetails);
+sumbitButton.addEventListener("click", addUser);
+
+// A function to add a user
+async function addUser()
+{
+    console.log("Adding User");
+    const {data:fetchData, error:fetchError} = await supabase.from("People").select("*").eq("PersonID", idInput.value);
+    if(fetchData.length > 0)
+    {
+        console.log("ID Already Being Used");
+        return;
+    }
+    else
+    {
+        const {error} = await supabase.from("People").insert({PersonID: idInput.value, Name: nameInput.value, Nickname: nicknameInput.value});
+        getDetails();
+    }
+}
 
 // A function to refresh the screen
 async function getDetails()
@@ -97,7 +121,7 @@ function showHidden(show)
     {
         // Show Elements
         navbar.style.display = "block";
-        statsbar.style.display = "block";
+        hiddenContent.style.display = "block";
 
         // Hide the Login Form
         loginForm.style.display = "none";
@@ -109,7 +133,7 @@ function showHidden(show)
     {
         // Hide Elements
         navbar.style.display = "none";
-        statsbar.style.display = "none";
+        hiddenContent.style.display = "none";
 
         // Show the Login Form
         loginForm.style.display = "block";
@@ -168,7 +192,7 @@ async function clearTable()
     console.log("Clear Table");
     if(table.children.length > 1)
     {
-        for(let i = 0; i < table.children.length; i++)
+        for(let i = 0; i <= table.children.length; i++)
         {
             table.removeChild(table.children[1]);
         }
