@@ -12,6 +12,7 @@ const loginForm = document.getElementById("login-form");
 const pwInput = document.getElementById("pwInput");
 const pwButton = document.getElementById("pwSubmit");
 const logoutButton = document.getElementById("adminLogout");
+const refreshButton = document.getElementById("refresh");
 
 // Create references to Text UI elements
 //// Users
@@ -29,10 +30,65 @@ const passwd = "59860170";
 // Add Event Listeners
 pwButton.addEventListener("click", checkPassword);
 logoutButton.addEventListener("click", logout);
+refreshButton.addEventListener("click", getStats);
 
-function getStats()
+async function getStats()
 {
-    
+    console.log("Refreshing Stats");
+    // User Data
+    const {data:userData, error:userError} = await supabase.from("People").select("*");
+    if(userData != null)
+    {
+        numUsers.innerText = "Number of Users: " + userData.length;
+    }
+    else
+    {
+        numUsers.innerText = "Number of Users: Unknown";
+        console.log("No User Data Found");
+        return;
+    }
+
+    // Activity Data
+    const {data:activityData, error:activityError} = await supabase.from("PeopleActivities").select("*");
+    if(activityData != null)
+    {
+        numActivities.innerText = "Number of Activities Subitted: " + activityData.length;
+        avgActivities.innerText = "Average Number of Activites: " + (activityData.length / userData.length);
+    }
+    else if(activityData.length == 0 || userData.length == 0)
+    {
+        numActivities.innerText = "Number of Activities Submitted: 0";
+        avgActivities.innerText = "Average Number of Activities per Person: 0";
+    }
+    else
+    {
+        numActivities.innerText = "Number of Activities Submitted: Unknown";
+        avgActivities.innerText = "Average Number of Activities per Person: Unknown";
+        console.log("No Activities Data Found");
+        return;
+    }
+
+    // Activity Data Daily
+    const today = new Date();
+    today.setTime(today.getTime() - 24*60*1000);
+    const {data:activityDailyData, error:activityDailyError} = await supabase.from("PeopleActivities").select("*").gte("CompletionTime", today.toISOString());
+    if(activityDailyData != null)
+    {
+        numActivitiesToday.innerText = "Number of Activities Today: " + activityDailyData.length;
+        avgActivitiesToday.innerText = "Average Number of Activities Today per Person: " + (activityDailyData.length / userData.length);
+    }
+    else if(activityDailyData.length == 0 || userData.length == 0)
+    {
+        numActivitiesToday.innerText = "Number of Activities Today: 0";
+        avgActivitiesToday.innerText = "Average Number of Activities Today per Person: 0";
+    }
+    else
+    {
+        numActivitiesToday.innerText = "Number of Activities Today: Unknown";
+        avgActivitiesToday.innerText = "Average Number of Activities Today per Person: Unknown";
+        console.log("No Activities Data Found");
+        return;
+    }
 }
 
 function showHidden(show)
@@ -99,3 +155,4 @@ function hashFunction(string) {
 
 showHidden(false);
 checkCookie();
+getStats();
