@@ -33,7 +33,7 @@ async function refreshLeaderboard()
             var rank = document.createElement("td");
             rank.innerText = i + 1;
             var name = document.createElement("td");
-            name.innerText = data[i].Name;
+            name.innerText = data[i].Nickname;
             var score = document.createElement("td");
             score.innerText = data[i].Score;
 
