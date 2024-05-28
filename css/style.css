@@ -73,9 +73,14 @@ button
     margin: 10px;
 }
 
+select
+{
+    margin: 10px;
+}
+
 input
 {
-    margin: 10px
+    margin: 10px;
 }
 
 table
