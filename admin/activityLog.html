@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>House Score System</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1"> 
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/admin/activityLog.js" type="module"></script>
+    </head>
+    <body>
+        <header>
+            <h1>House Score System Admin</h1>
+            <nav id="navbar-container" class="main-component">
+                <ul id="navbar">
+                    <li><a href="./dashboard.html">Stats</a></li>
+                    <li><a href="./users.html">Users</a></li>
+                    <li><a href="./activities.html">Activities</a></li>
+                    <li>ActivityLog</li>
+                </ul>
+            </nav>
+        </header>
+        <div id="body-container">
+            <main class="main-component" style="grid-column: span 2;">
+                <h2 id="main-header">Login to view</h2>
+                <form id="login-form">
+                    <input id="pwInput" name="pwInput" type="password" placeholder="Enter Password">
+                    <br>
+                    <button id="pwSubmit" name="pwSubmit" type="button">Submit</button>
+                </form>
+                <span id="hidden-container">
+                    <button id="adminLogout" name="adminLogout" type="button">Log Out</button>
+                    <button id="refresh" name="refresh" type="button">Refresh Details</button>
+                    <h3>Activites Log</h3>
+                        <p id="userCount">Number of Submitted Activites:</p>
+                        <label for="userStats">Activity Log:</label>
+                        <table id="userStats" name="userStats">
+                            <tr>
+                                <th>Activity Log ID</th>
+                                <th>Person ID</th>
+                                <!--<th>Person Name</th>-->
+                                <th>Activity ID</th>
+                                <!--<th>Activity Name</th>-->
+                                <th>Completion Date</th>
+                                <th></th>
+                            </tr>
+                        </table>
+                </span>
+            </main>
+            <footer>
+                <p>This webpage was created by Jack Babey in 2024 and is protected under an MIT License</p>
+                <p>This webpage is publically hosted via GitHub Pages</p>
+            </footer>
+        </div>
+    </body>
+</html>

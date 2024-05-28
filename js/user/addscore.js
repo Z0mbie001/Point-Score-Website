@@ -126,6 +126,7 @@ async function getActivity(ActivityName)
         return;
     }
     let {data, error} = await supabase.from("Activities").select("*").eq("ActivityName", ActivityName);
+    console.log(data)
     if(data != null)
         {
             if(data.length == 1)
