@@ -19,6 +19,8 @@ const refreshButton = document.getElementById("refresh");
 const mainHeader = document.getElementById("main-header");
 //// Users
 const numUsers = document.getElementById("userCount");
+const pointsCount = document.getElementById("pointsCount");
+const pointsAvg = document.getElementById("pointsAvg")
 
 //// Activites
 const numActivities = document.getElementById("userActivity");
@@ -42,6 +44,13 @@ async function getStats()
     if(userData != null)
     {
         numUsers.innerText = "Number of Users: " + userData.length;
+        var total = 0;
+        for(let i = 0; i < userData.length; i++)
+        {
+            total += userData[i].Score;
+        }
+        pointsCount.innerText = "Total Number of Points: " + total;
+        pointsAvg.innerText = "Average Points per Person: " + (total/userData.length);
     }
     else
     {
